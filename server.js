@@ -62,8 +62,19 @@ io.on('connection', (socket) => {
         broadcastLobbies();
     });
 
-    // Optional: Handle lobby leaving or disconnection logic
-    // This could include removing a player from a lobby if they disconnect
+    socket.on('deleteLobby', ({ lobbyId }) => {
+        delete lobbies[lobbyId];
+        lobbyCount--;
+        broadcastLobbies();
+    });
+    
+    socket.on('removePlayer', ({ lobbyId, playerName }) => {
+        const lobby = lobbies[lobbyId];
+        if (lobby) {
+            lobbies[lobbyId].players = lobby.players.filter(player => player !== playerName);
+            broadcastLobbies();
+        }
+    });
 
     broadcastLobbies(); // Initial broadcast to update any connecting clients
 });

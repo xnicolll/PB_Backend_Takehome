@@ -54,3 +54,43 @@ body {
 .emptyPlayer {
     visibility: hidden;
 }
+
+.lobby-full {
+    background-color: green;
+}
+
+table tr:hover td {
+    font-weight: bold;
+}
+
+table tr td .delete-lobby, table tr td .remove-player {
+    display: none;
+    cursor: pointer;
+}
+
+table tr:hover td .delete-lobby, table tr:hover td .remove-player {
+    display: inline;
+}
+
+/* Hide delete and remove options by default */
+.delete-lobby, .remove-player {
+    display: none;
+    cursor: pointer;
+    color: red; /* Optional: Makes it visually clear it's a delete action */
+    margin-left: 10px; /* Adds some spacing for visual clarity */
+}
+
+/* Only show delete option when hovering over the lobby header or a player */
+.lobby-header:hover .delete-lobby,
+.player:hover .remove-player {
+    display: inline;
+}
+
+.lobby-full {
+    background-color: green; /* This ensures the whole section turns green */
+}
+
+.game-in-progress {
+    font-weight: bold;
+    color: white; /* Ensures text stands out against the green background */
+}

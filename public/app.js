@@ -24,14 +24,65 @@ document.addEventListener('DOMContentLoaded', () => {
         Object.entries(lobbies).forEach(([lobbyId, lobby], index) => {
             const lobbyDiv = document.createElement('div');
             lobbyDiv.className = 'lobby';
-            lobbyDiv.innerHTML = `<div class="lobby-header">Lobby ${index + 1}: ${lobby.details.gameName}</div>`;
+            lobbyDiv.id = `lobby-${lobbyId}`;
+    
+            const lobbyHeaderDiv = document.createElement('div');
+            lobbyHeaderDiv.className = 'lobby-header';
+            lobbyHeaderDiv.innerHTML = `Lobby ${index + 1}: ${lobby.details.gameName}`;
+            const deleteSpan = document.createElement('span');
+            deleteSpan.className = 'delete-lobby';
+            deleteSpan.setAttribute('data-lobbyid', lobbyId);
+            deleteSpan.textContent = 'Delete Lobby';
+            lobbyHeaderDiv.appendChild(deleteSpan);
+    
+            lobbyDiv.appendChild(lobbyHeaderDiv);
+    
             lobby.players.forEach(player => {
                 const playerDiv = document.createElement('div');
-                playerDiv.textContent = player;
                 playerDiv.className = 'player';
+                playerDiv.textContent = player;
+                const removeSpan = document.createElement('span');
+                removeSpan.className = 'remove-player';
+                removeSpan.setAttribute('data-lobbyid', lobbyId);
+                removeSpan.setAttribute('data-playername', player);
+                removeSpan.textContent = 'Remove Player';
+                playerDiv.appendChild(removeSpan);
                 lobbyDiv.appendChild(playerDiv);
             });
+    
+            // Check if the lobby is full
+            if (lobby.players.length === 5) {
+                lobbyDiv.classList.add('lobby-full'); // This class will change the background to green
+    
+                // Create and append the "game in progress" message
+                const gameInProgressMessage = document.createElement('div');
+                gameInProgressMessage.className = 'game-in-progress';
+                gameInProgressMessage.textContent = `${lobby.details.gameName} has a game in progress`;
+                lobbyDiv.appendChild(gameInProgressMessage); // Append the message to the lobbyDiv
+            }
+    
             lobbiesContainer.appendChild(lobbyDiv);
+        });
+    
+        attachEventListeners();
+    }
+    
+    
+
+    function attachEventListeners() {
+        document.querySelectorAll('.delete-lobby').forEach(button => {
+            button.addEventListener('click', function() {
+                const lobbyId = this.getAttribute('data-lobbyid');
+                socket.emit('deleteLobby', { lobbyId });
+            });
+        });
+
+        document.querySelectorAll('.remove-player').forEach(button => {
+            button.addEventListener('click', function() {
+                const lobbyId = this.getAttribute('data-lobbyid');
+                const playerName = this.getAttribute('data-playername');
+                socket.emit('removePlayer', { lobbyId, playerName });
+            });
         });
     }
 
