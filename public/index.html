@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Lobby System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <h1>Game Lobby System</h1>
+    Player Name: <input type="text" id="playerName" placeholder="Your name..."><br>
+    <div>Create Lobby: <input type="text" id="lobbyName" placeholder="Lobby name...">
+    <button id="createLobby">Create</button></div>
+    <!-- Join Lobby Section -->
+    <div>Join Lobby: 
+        <input type="text" id="joinLobbyName" placeholder="Lobby name...">
+        <input type="text" id="joinPlayerName" placeholder="Your name...">
+        <button id="joinLobbyByNameButton">Join Lobby</button>
+    </div>
+    <div id="lobbies">Lobbies will be listed here...</div>
+</body>
+</html>
