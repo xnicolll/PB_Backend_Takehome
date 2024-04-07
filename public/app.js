@@ -28,11 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
             const lobbyHeaderDiv = document.createElement('div');
             lobbyHeaderDiv.className = 'lobby-header';
-            lobbyHeaderDiv.innerHTML = `Lobby ${index + 1}: ${lobby.details.gameName}`;
+            lobbyHeaderDiv.innerHTML = `${lobby.details.gameName}`;
             const deleteSpan = document.createElement('span');
             deleteSpan.className = 'delete-lobby';
             deleteSpan.setAttribute('data-lobbyid', lobbyId);
-            deleteSpan.textContent = 'Delete Lobby';
+            deleteSpan.textContent = '';
             lobbyHeaderDiv.appendChild(deleteSpan);
     
             lobbyDiv.appendChild(lobbyHeaderDiv);
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 removeSpan.className = 'remove-player';
                 removeSpan.setAttribute('data-lobbyid', lobbyId);
                 removeSpan.setAttribute('data-playername', player);
-                removeSpan.textContent = 'Remove Player';
+                removeSpan.textContent = '';
                 playerDiv.appendChild(removeSpan);
                 lobbyDiv.appendChild(playerDiv);
             });

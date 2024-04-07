@@ -1,96 +1,125 @@
-#lobbies {
+/* Base styles for improved aesthetics */
+body {
+    font-family: "Lucida Console", "Courier New", monospace;
+    background-color: #F0F2F5;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #222;
+    font-size: 24px;
+    text-align: center;
+}
+
+input[type="text"], button {
+    font-family: "Lucida Console", "Courier New", monospace;
+    font-size: 16px;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #CCC;
+    border-radius: 0;
+}
+
+input[type="text"] {
+    width: calc(100% - 22px);
+}
+
+button {
+    background-color: #567ba3;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 0;
+    border-color: transparent;
+}
+
+button:hover {
+    background-color: #072442;
+}
+
+div {
+    margin-bottom: 20px;
+}
+
+/* Lobby and player styles including hover functionalities for delete and remove options */
+.lobbies-container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Creates 5 columns */
-    gap: 10px; /* Adjust the gap between items as needed */
-    margin-top: 20px; /* Adds some space above the lobby list */
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 15px;
 }
 
 .lobby-header, .player {
-    padding: 8px;
-    border: 1px solid #ddd;
+    background-color: #FFF;
+    border: 1px solid #DDD;
+    padding: 10px;
     text-align: center;
-    background-color: #f9f9f9;
+    position: relative; /* Allows for absolute positioning of child elements like delete buttons */
 }
 
 .lobby-header {
     font-weight: bold;
-    background-color: #f2f2f2;
+    background-color: #E9ECEF;
 }
 
-
-body {
-    font-family: Arial, sans-serif;
-}
-
-#lobbyTable {
+.notification {
+    text-align: center;
     margin-top: 20px;
-    width: 100%;
-    border-collapse: collapse;
+    padding: 10px;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460;
 }
 
-#lobbyTable th, #lobbyTable td {
-    border: 1px solid #ddd;
-    text-align: left;
-    padding: 8px;
+/* Base styles for hover deletion functionality */
+.lobby-header, .player {
+    position: relative; /* Ensure the positioning context for absolute children */
+    /* Ensure there's enough height for the delete box. Adjust as necessary */
+    min-height: 40px; /* Example height, adjust based on your design */
 }
 
-#lobbyTable th {
-    background-color: #f2f2f2;
-}
-
-.lobbyRow > td {
-    background-color: #f9f9f9;
-}
-
-.playerCell {
-    min-width: 120px;
-    background-color: #ffffff;
-    border: 1px solid #e7e7e7;
-    padding: 5px 10px;
-    margin-right: 5px;
-    display: inline-block;
-}
-
-.emptyPlayer {
-    visibility: hidden;
-}
-
-.lobby-full {
-    background-color: green;
-}
-
-table tr:hover td {
-    font-weight: bold;
-}
-
-table tr td .delete-lobby, table tr td .remove-player {
-    display: none;
-    cursor: pointer;
-}
-
-table tr:hover td .delete-lobby, table tr:hover td .remove-player {
-    display: inline;
-}
-
-/* Hide delete and remove options by default */
+/* Enhanced hover effects for deletion with animation */
 .delete-lobby, .remove-player {
     display: none;
+    position: absolute;
+    right: 5px; /* Closer to the edge but within the cell */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%);
+    width: 50px; /* Nearly the full width of the cell */
+    height: 50px; /* Nearly the full height of the cell */
     cursor: pointer;
-    color: red; /* Optional: Makes it visually clear it's a delete action */
-    margin-left: 10px; /* Adds some spacing for visual clarity */
+    background-color: #FF6347; /* Red background */
+    border-radius: 0; /* Sharp edges for the square */
+    opacity: 0; /* Start fully transparent */
+    transition: opacity 0.3s ease; /* Smooth transition for the opacity */
+    z-index: 9999;
 }
 
-/* Only show delete option when hovering over the lobby header or a player */
-.lobby-header:hover .delete-lobby,
-.player:hover .remove-player {
-    display: inline;
+/* Creating the "X" inside the red square */
+.delete-lobby::after, .remove-player::after {
+    content: '×'; /* Unicode character for "X" */
+    color: #FFF; /* White color for the "X" */
+    font-size: 36px; /* Larger font size for the "X" */
+    line-height: 50px; /* Adjust based on the height of the box */
+    text-align: center; /* Center the "X" horizontally */
+    position: absolute; /* Position the "X" absolutely within the square */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center the "X" precisely */
 }
 
-.lobby-full {
-    background-color: green; /* This ensures the whole section turns green */
+.lobby-header:hover .delete-lobby, .player:hover .remove-player {
+    display: block; /* Ensure the block is displayed on hover */
+    opacity: 1; /* Transition to fully opaque */
 }
 
-.game-in-progress {
-    font-weight: bold;
-    color: white; /* Ensures text stands out against the green background */
+
+
+/* Adjustments for responsiveness */
+@media (max-width: 600px) {
+    .lobbies-container {
+        grid-template-columns: 1fr;
+    }
 }
