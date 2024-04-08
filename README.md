@@ -16,6 +16,7 @@ Before using this system, ensure you have:
 And:
 * Socket.IO
 * Express
+  
 Which will be automatically installed via NPM when setting up.
 
 ### Executing program
