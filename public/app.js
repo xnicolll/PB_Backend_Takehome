@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const gameInProgressMessage = document.createElement('div');
                 gameInProgressMessage.className = 'game-in-progress';
                 gameInProgressMessage.textContent = `${lobby.details.gameName} has a game in progress`;
-                lobbyDiv.appendChild(gameInProgressMessage); // Append the message to the lobbyDiv
+                lobbyDiv.appendChild(gameInProgressMessage); 
             }
     
             lobbiesContainer.appendChild(lobbyDiv);
