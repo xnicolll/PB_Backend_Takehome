@@ -5,6 +5,7 @@ Prompt: Develop a backend system that manages game lobbies for a multiplayer gam
 ## Description
 
 Of course, due to the nature of this project, and the time period I had available to complete it, it is very simple. However, I have made sure that it is functionable, clean and simple for the users to interact with.
+Explain Max number of lobbies, people etc...
 
 ## Getting Started
 
