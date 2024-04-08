@@ -22,7 +22,7 @@ io.on('connection', (socket) => {
     }
 
     socket.on('createLobby', ({ playerId, lobbyDetails }) => {
-        if (lobbyCount >= 5) {
+        if (lobbyCount >= 4) {
             socket.emit('error', 'Maximum number of lobbies reached.');
             return;
         }
@@ -38,6 +38,8 @@ io.on('connection', (socket) => {
         lobbies[lobbyId] = { players: [playerId], details: lobbyDetails };
         lobbyCount++;
         broadcastLobbies();
+
+        io.emit('notification', `A new lobby named ${lobbyDetails.gameName} has been created.`);
     });
 
     socket.on('joinLobbyByName', ({ playerId, lobbyName }) => {
@@ -59,24 +61,37 @@ io.on('connection', (socket) => {
         }
 
         lobby.players.push(playerId);
+        socket.join(lobbyId); 
         broadcastLobbies();
+
+        io.emit('notification', `${playerId} has joined ${lobbyName}.`);
     });
 
     socket.on('deleteLobby', ({ lobbyId }) => {
+        const lobbyName = lobbies[lobbyId]?.details.gameName;
         delete lobbies[lobbyId];
         lobbyCount--;
         broadcastLobbies();
+
+        if (lobbyName) {
+            io.emit('notification', `The lobby named ${lobbyName} has been deleted.`);
+        }
     });
     
     socket.on('removePlayer', ({ lobbyId, playerName }) => {
         const lobby = lobbies[lobbyId];
         if (lobby) {
+            const lobbyName = lobby.details.gameName;
+    
             lobbies[lobbyId].players = lobby.players.filter(player => player !== playerName);
             broadcastLobbies();
+    
+            io.emit('notification', `${playerName} has left ${lobbyName}.`);
         }
     });
+    
 
-    broadcastLobbies(); // Initial broadcast to update any connecting clients
+    broadcastLobbies();
 });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));

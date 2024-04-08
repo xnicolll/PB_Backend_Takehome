@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
             // Check if the lobby is full
             if (lobby.players.length === 5) {
-                lobbyDiv.classList.add('lobby-full'); // This class will change the background to green
+                lobbyDiv.classList.add('lobby-full');
     
                 // Create and append the "game in progress" message
                 const gameInProgressMessage = document.createElement('div');
@@ -66,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
         attachEventListeners();
     }
-    
     
 
     function attachEventListeners() {
@@ -110,6 +109,13 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             alert('Both player name and lobby name are required to join a lobby.');
         }
+    });
+
+    socket.on('notification', (message) => {
+        const notificationsList = document.getElementById('notificationsList');
+        const newNotification = document.createElement('li');
+        newNotification.textContent = message;
+        notificationsList.appendChild(newNotification);
     });
 
     // Listen for server events
