@@ -51,7 +51,7 @@ For the backend development, I used Node.js along with the Express framework and
 
 ## Future Ideas
 
-1. Persistent Data Storage: Using a database like SQLite could allow retention of lobby and player data, even if the server restarts. This would enable players to return to their lobbies without losing progress.
+1. Data Storage: Using a database like SQL could allow retention of lobby and player data, even if the server restarts. This would enable players to return to their lobbies without losing progress.
 
 2. User Authentication: Implementing a simple user login system would give a personalised experience. Players could have profiles, track game history, and secure their lobbies with passwords.
 
